@@ -10,7 +10,7 @@
 read_csv_filename <- function(filename, type){
       ret <- read.csv(filename)[ ,c("Email.Address", type)]
       ret$Source <- filename #EDIT
-      ret$DataType <- type
+      ret$Type <- type
       ret
 }
 
@@ -33,17 +33,25 @@ concatenateCSV <- function(directory, folder="click_activity", type="Clicks"){
                   next
             }
       }
+      names(data)[2] <- "Data"
       data
 }
 
-#concatenate to dataframe
-concatenate <- function(set1, set2){
-      for (i in length(set1)){
-            
-      }
+#read users.csv from mailchimp folder (added manually)
+sanitizeUserfile <- function(filename) {
+      ret <- read.csv("users.csv")[,c("id","email")]
+      ret$Data <- "1"
+      ret$Type <- "New"
+
+      ret
+      ret[,c("email","Data","id","Type")]
 }
 
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411/aggregate_activity"
+
+#remove useless column
+#add unique count "1" column && "Type" column
+
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-1/aggregate_activity"
 setwd(directory)
 dataClicks <- concatenateCSV(getwd(), "click_activity", "Clicks")
 setwd(directory)
@@ -52,4 +60,4 @@ dataOpens <- concatenateCSV(getwd(), "opened", "Opens")
 allData <- rbind(dataClicks, dataOpens)
 
 #export into xls
-write.csv(dataClicks, "c:/Temp/emailData.csv", row.names=FALSE)
+write.csv(allData, "c:/Temp/emailData.csv", row.names=FALSE)
