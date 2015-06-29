@@ -7,16 +7,17 @@
 
 
 #add column with filename
-read_csv_filenameClick <- function(filename){
-      ret <- read.csv(filename)[ ,c('Email.Address', 'Clicks')]
+read_csv_filename <- function(filename, type){
+      ret <- read.csv(filename)[ ,c("Email.Address", type)]
       ret$Source <- filename #EDIT
+      ret$Data <- type
       ret
 }
 
 p <- list.files(pattern="*.csv")
 
 #concatenate files with only email and click
-concatenateClick <- function(directory){
+concatenate <- function(directory, type="Clicks"){
       p <- list.files(directory, pattern="*.csv")
       data <- c()
       #loop through the file
@@ -24,7 +25,7 @@ concatenateClick <- function(directory){
             temp1 <- read.csv(p[i])
             if(nrow(temp1)!=0){
                   #import data and add column with file name
-                  temp2 <- read_csv_filenameClick(p[i])
+                  temp2 <- read_csv_filename(p[i], type)
                   #concatenate
                   data <- rbind(data,temp2)
                   next
@@ -36,8 +37,8 @@ concatenateClick <- function(directory){
 }
 
 #add column with filename
-read_csv_filenameOpens <- function(filename){
-      ret <- read.csv(filename)[ ,c('Email.Address', 'Opens')]
+read_csv_filenameOpens <- function(filename, type){
+      ret <- read.csv(filename)[ ,c("Email.Address", type)]
       ret$Source <- filename #EDIT
       ret
 }
@@ -51,7 +52,7 @@ concatenateOpen <- function(directory){
             temp1 <- read.csv(p[i])
             if(nrow(temp1)!=0){
                   #import data and add column with file name
-                  temp2 <- read_csv_filenameOpens(p[i])
+                  temp2 <- read_csv_filenameOpens(p[i],"Open")
                   #concatenate
                   data <- rbind(data,temp2)
                   next
@@ -68,11 +69,11 @@ setwd("C:/Users/Aymeric/Documents/endource/cohort/25307411/aggregate_activity/cl
 dataClick <- concatenateClick(getwd())
 
 #export into xls
-write.csv(dataClick, "c:/Temp/clickData.txt", row.names=FALSE)
+write.csv(dataClick, "c:/Temp/clickData.csv", row.names=FALSE)
 
 setwd("C:/Users/Aymeric/Documents/endource/cohort/25307411/aggregate_activity/opened")
 dataOpen <- concatenateOpen(getwd())
 
 
 #export into xls
-write.csv(dataOpen, "c:/Temp/opendata.txt", row.names=FALSE)
+write.csv(dataOpen, "c:/Temp/opendata.csv", row.names=FALSE)
