@@ -42,10 +42,18 @@ sanitizeUserfile <- function(filename) {
       ret <- read.csv("users.csv")[,c("id","email")]
       ret$Data <- "1"
       ret$Type <- "New"
-
       ret
       ret[,c("email","Data","id","Type")]
 }
+
+#Rename colum and sanitize
+cleanUserfile <- function(filename){
+      temp <- sanitizeUserfile(filename)
+      colnames(temp)[1:4] <- c("Email.Address", "Data", "Source", "Type")
+      temp 
+}
+    
+
 
 
 #remove useless column
@@ -56,8 +64,10 @@ setwd(directory)
 dataClicks <- concatenateCSV(getwd(), "click_activity", "Clicks")
 setwd(directory)
 dataOpens <- concatenateCSV(getwd(), "opened", "Opens")
+setwd(directory)
+dataUsers <- cleanUserfile("users.csv")
 
-allData <- rbind(dataClicks, dataOpens)
+allData <- rbind(dataClicks, dataOpens, dataUsers)
 
 #export into xls
-write.csv(allData, "c:/Temp/emailData.csv", row.names=FALSE)
+write.csv(allData, "c:/Temp/emailData30.csv", row.names=FALSE)
