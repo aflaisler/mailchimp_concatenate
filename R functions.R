@@ -10,14 +10,12 @@
 read_csv_filename <- function(filename, type){
       ret <- read.csv(filename)[ ,c("Email.Address", type)]
       ret$Source <- filename #EDIT
-      ret$Data <- type
+      ret$DataType <- type
       ret
 }
 
-p <- list.files(pattern="*.csv")
-
 #concatenate files with only email and click
-concatenate <- function(directory, folder="click_activity", type="Clicks"){
+concatenateCSV <- function(directory, folder="click_activity", type="Clicks"){
       dir <- paste(directory, folder, sep = "/")
       setwd(dir)
       p <- list.files(dir, pattern="*.csv")
@@ -36,20 +34,22 @@ concatenate <- function(directory, folder="click_activity", type="Clicks"){
             }
       }
       data
-      setwd(directory)
 }
 
+#concatenate to dataframe
+concatenate <- function(set1, set2){
+      for (i in length(set1)){
+            
+      }
+}
 
-setwd("C:/Users/Aymeric/Documents/endource/cohort/25307411/aggregate_activity")
-dataClicks <- concatenate(getwd(), "click_activity", "Clicks")
-dataOpens <- concatenate(getwd(), "opened", "Opens")
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411/aggregate_activity"
+setwd(directory)
+dataClicks <- concatenateCSV(getwd(), "click_activity", "Clicks")
+setwd(directory)
+dataOpens <- concatenateCSV(getwd(), "opened", "Opens")
+
+allData <- rbind(dataClicks, dataOpens)
 
 #export into xls
-write.csv(dataClick, "c:/Temp/clickData.csv", row.names=FALSE)
-
-setwd("C:/Users/Aymeric/Documents/endource/cohort/25307411/aggregate_activity/opened")
-dataOpen <- concatenateOpen(getwd())
-
-
-#export into xls
-write.csv(dataOpen, "c:/Temp/opendata.csv", row.names=FALSE)
+write.csv(dataClicks, "c:/Temp/emailData.csv", row.names=FALSE)
