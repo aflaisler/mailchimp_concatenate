@@ -14,6 +14,9 @@ read_csv_filename <- function(filename, type){
       ret
 }
 
+#List all email (to be added to the email/date file)
+p <- list.files(directory, pattern="*.csv")
+
 #concatenate files with only email and click
 concatenateCSV <- function(directory, folder="click_activity", type="Clicks"){
       dir <- paste(directory, folder, sep = "/")
@@ -59,7 +62,7 @@ cleanUserfile <- function(filename){
 #remove useless column
 #add unique count "1" column && "Type" column
 
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-1/aggregate_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/Open rate pb since 25 of may/25307411-2/aggregate_activity"
 setwd(directory)
 dataClicks <- concatenateCSV(getwd(), "click_activity", "Clicks")
 setwd(directory)
@@ -69,5 +72,9 @@ dataUsers <- cleanUserfile("users.csv")
 
 allData <- rbind(dataClicks, dataOpens, dataUsers)
 
-#export into xls
-write.csv(allData, "c:/Temp/emailData30.csv", row.names=FALSE)
+#export email data into csv
+write.csv(allData, "c:/Temp/0107.csv", row.names=FALSE)
+
+#export list email
+p <- list.files(paste(directory,"click_activity", sep="/"), pattern="*.csv")
+write.csv(p, "c:/Temp/listallnewsletters.csv", row.names=FALSE)
