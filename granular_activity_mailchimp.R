@@ -29,6 +29,7 @@ concatenateCSV_granular <- function(directory, folder="clicks", type="Clicks"){
                   next
             }
       }
+      setwd("..")
       names(data)[4] <- "Data"
       data
 }
@@ -45,6 +46,7 @@ sanitizeUserfile <- function(filename) {
 
 #Rename colum and sanitize
 cleanUserfile <- function(filename){
+      setwd("..")
       temp <- sanitizeUserfile(filename)
       colnames(temp)[1:4] <- c("Timestamp","email", "Source", "Data")
       temp 
@@ -53,18 +55,21 @@ cleanUserfile <- function(filename){
 #remove useless column
 #add unique count "1" column && "Type" column
 
-directory <- "C:/Users/Aymeric/Documents/endource/Open rate pb since 25 of may/25307411-2/granular_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-2/granular_activity"
 setwd(directory)
+#get clicked email data
 dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
-setwd(directory)
+#get opened email data
 dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
-setwd(directory)
+#get new user data
 dataUsers <- cleanUserfile("users.csv")
 
 allData <- rbind(dataClicks, dataOpens, dataUsers)
 
 #export email data into csv
-write.csv(allData, "c:/Temp/granular_mailchimp_data.csv", row.names=FALSE)
+extract_Name <- paste("c:/Temp/granular_mailchimp_data",
+                      format(Sys.Date(),"%d%m%y"),".csv",sep="_")
+write.csv(allData, extract_Name, row.names=FALSE)
 
 #export list email
 p <- list.files(paste(directory,"clicks", sep="/"), pattern="*.csv")

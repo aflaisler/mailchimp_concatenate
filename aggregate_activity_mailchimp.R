@@ -36,6 +36,7 @@ concatenateCSV <- function(directory, folder="click_activity", type="Clicks"){
                   next
             }
       }
+      setwd("..")
       names(data)[2] <- "Data"
       data
 }
@@ -51,6 +52,7 @@ sanitizeUserfile <- function(filename) {
 
 #Rename colum and sanitize
 cleanUserfile <- function(filename){
+      setwd("..")
       temp <- sanitizeUserfile(filename)
       colnames(temp)[1:4] <- c("Email.Address", "Data", "Source", "Type")
       temp 
@@ -64,16 +66,19 @@ cleanUserfile <- function(filename){
 
 directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-2/aggregate_activity"
 setwd(directory)
+#get clicked email data
 dataClicks <- concatenateCSV(getwd(), "click_activity", "Clicks")
-setwd(directory)
+#get opened email data
 dataOpens <- concatenateCSV(getwd(), "opened", "Opens")
-setwd(directory)
+#get new user data
 dataUsers <- cleanUserfile("users.csv")
 
 allData <- rbind(dataClicks, dataOpens, dataUsers)
 
 #export email data into csv
-write.csv(allData, "c:/Temp/0707.csv", row.names=FALSE)
+extract_Name <- paste("c:/Temp/aggregate_mailchimp_data",
+                      format(Sys.Date(),"%d%m%y"),".csv",sep="_")
+write.csv(allData, extract_Name, row.names=FALSE)
 
 #export list email
 p <- list.files(paste(directory,"click_activity", sep="/"), pattern="*.csv")
