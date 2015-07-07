@@ -62,7 +62,7 @@ cleanUserfile <- function(filename){
 #remove useless column
 #add unique count "1" column && "Type" column
 
-directory <- "C:/Users/Aymeric/Documents/endource/Open rate pb since 25 of may/25307411-2/aggregate_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-2/aggregate_activity"
 setwd(directory)
 dataClicks <- concatenateCSV(getwd(), "click_activity", "Clicks")
 setwd(directory)
@@ -73,7 +73,7 @@ dataUsers <- cleanUserfile("users.csv")
 allData <- rbind(dataClicks, dataOpens, dataUsers)
 
 #export email data into csv
-write.csv(allData, "c:/Temp/0107.csv", row.names=FALSE)
+write.csv(allData, "c:/Temp/0707.csv", row.names=FALSE)
 
 #export list email
 p <- list.files(paste(directory,"click_activity", sep="/"), pattern="*.csv")
