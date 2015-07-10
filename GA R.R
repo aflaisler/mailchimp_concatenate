@@ -7,6 +7,7 @@ install.packages("stringi")
 library(stringi)
 
 #install the github repo  to use GA API v3 (made by Googlers)
+install.packages("RGoogleAnalytics")
 install_github("Tatvic/RGoogleAnalytics")
 library(RGoogleAnalytics)
 
