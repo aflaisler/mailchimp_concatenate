@@ -2,7 +2,7 @@
 #add column with filename
 read_csv_filename_granular <- function(filename, type){
       ret <- read.csv(filename, header=F)[-1,c(1,3)]
-      colnames(ret)[1:2] <- c("Timestamp", "email")
+      colnames(ret)[1:2] <- c("email", "Timestamp")
       ret$Source <- filename #EDIT
       ret$Type <- type
       unique(ret)
@@ -48,14 +48,14 @@ sanitizeUserfile <- function(filename) {
 cleanUserfile <- function(filename){
       setwd("..")
       temp <- sanitizeUserfile(filename)
-      colnames(temp)[1:4] <- c("Timestamp","email", "Source", "Data")
+      colnames(temp)[1:4] <- c("email","Timestamp", "Source", "Data")
       temp 
 }
 
 #remove useless column
 #add unique count "1" column && "Type" column
 
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-2/granular_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-3/granular_activity"
 setwd(directory)
 #get clicked email data
 dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
