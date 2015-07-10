@@ -2,11 +2,12 @@
 #add column with filename
 read_csv_filename_granular <- function(filename, type){
       ret <- read.csv(filename, header=F)[-1,c(1,3)]
-      colnames(ret)[1:2] <- c("email", "Timestamp")
+      colnames(ret)[1:2] <- c("Timestamp", "email")
       ret$Source <- filename #EDIT
       ret$Type <- type
       unique(ret)
       ret
+      ret[,c("email", "Timestamp", "Source", "Type")]
 }
 
 
@@ -41,7 +42,7 @@ sanitizeUserfile <- function(filename) {
       #ret$Data <- "1"
       ret$Type <- "New"
       ret
-      ret[,c("dateCreated", "email","id","Type")]
+      ret[,c("email", "dateCreated", "id", "Type")]
 }
 
 #Rename colum and sanitize
