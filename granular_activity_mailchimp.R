@@ -56,7 +56,7 @@ cleanUserfile <- function(filename){
 #remove useless column
 #add unique count "1" column && "Type" column
 
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-3/granular_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-4/granular_activity"
 setwd(directory)
 #get clicked email data
 dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
