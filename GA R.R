@@ -21,14 +21,18 @@ library(RGoogleAnalytics)
 token <- Auth("759932251705-1nbssfv67nbgs04lb5lnonpo535bh928.apps.googleusercontent.com",
               "RD2tu63SwZF2jrCab3QUVkIJ")
 
-save(token,file="./token_file")
+token2 <- Auth("535373914577-eslikeemn0snd94rn3tt2708movf9e9b.apps.googleusercontent.com",
+               "WiZHQvgWjQHegsfCyEwmOm4z")
+
+
+save(token2,file="./token_file")
 load("./token_file")
-ValidateToken(token)
+ValidateToken(token2)
 
 
 query.list <- Init(start.date = "2015-04-01",
                    end.date = "2015-07-14",
-                   dimensions = "ga:pagePath",
+                   dimensions = "ga:dimension14, ga:country",
                    metrics = "ga:sessions",
                    max.results = 20000,
                    #sort = "-ga:date",
@@ -39,9 +43,9 @@ query.list <- Init(start.date = "2015-04-01",
 ga.query <- QueryBuilder(query.list)
 
 # Extract the data and store it in a data-frame
-ga.data <- GetReportData(ga.query, token, paginate_query = T)
+ga.data <- GetReportData(ga.query, token2, paginate_query = F)
 
 #export email data into csv
-extract_Name <- paste("c:/Temp/GA_data",
+extract_Name <- paste("c:/Temp/GA_data_country",
                       format(Sys.Date(),"%d%m%y"),".csv",sep="_")
 write.csv(ga.data, extract_Name, row.names=FALSE)
