@@ -30,10 +30,10 @@ load("./token_file")
 ValidateToken(token2)
 
 
-query.list <- Init(start.date = "2015-04-01",
-                   end.date = "2015-07-14",
+query.list <- Init(start.date = "2014-04-01",
+                   end.date = "2015-07-17",
                    dimensions = "ga:dimension14, ga:country",
-                   metrics = "ga:sessions",
+                   metrics = "ga:goal3completions",
                    max.results = 20000,
                    #sort = "-ga:date",
                    #samplingLevel="HIGHER_PRECISION",
