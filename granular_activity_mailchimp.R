@@ -79,6 +79,24 @@ Test1_Granular_Activity <- function(directory){
       }
 }
 
+#test if 2 vectors of dim 3 are identical
+Test_Vector_dim3 <- function(X,Y){
+      error <- 0
+      for(i in 1:3){
+            if(Y[i,1]==X[i,1] & is.na(Y[i,1])==FALSE & is.na(X[i,1])==FALSE){
+                  next
+            }else{
+                  error <- 1
+                  next
+            }
+      }
+      if(error==0){
+            print("Passed")
+      }else{
+            print("Failed, some data is not Clicks, Opens or New")
+      }     
+}
+
 ###################################################################################
 
 #Extract and process data
@@ -93,28 +111,12 @@ Test1_Granular_Activity(directory)
 
 
 #test2  check 1st col only contain emails
-
-allData <- rbind(dataClicks, dataOpens, dataUsers)
-unique(allData[4])
-dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
-dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
-dataUsers <- cleanUserfile("users.csv")
-test2 <- function(X,Y){
-      error <- 0
-      for(i in 1:3){
-            if(Y[i,1]==X[i,1] & is.na(Y[i,1])==FALSE & is.na(X[i,1])==FALSE){
-                  next
-                  }else{
-                  error <- 1
-                  next
-                  }
-      }
-      if(error==0){
-            print("Passed")
-      }else{
-            print("Failed, some data is not Clicks, Opens or New")
-      }
-
+Test2 <- function(){
+      allData <- rbind(dataClicks, dataOpens, dataUsers)
+      X <- unique(allData[4])
+      Data <- c("Clicks", "Opens", "New")
+      Y <- data.frame(Data)
+      Test_Vector_dim3(X,Y)
 }
 
 #test3 check 3rd col only contains "Clicks", "Opens", "New"

@@ -21,10 +21,6 @@ library(RGoogleAnalytics)
 token <- Auth("759932251705-1nbssfv67nbgs04lb5lnonpo535bh928.apps.googleusercontent.com",
               "RD2tu63SwZF2jrCab3QUVkIJ")
 
-token2 <- Auth("535373914577-eslikeemn0snd94rn3tt2708movf9e9b.apps.googleusercontent.com",
-               "WiZHQvgWjQHegsfCyEwmOm4z")
-
-
 save(token,file="./token_file")
 load("./token_file")
 ValidateToken(token)
