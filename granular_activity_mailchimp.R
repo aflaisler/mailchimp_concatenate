@@ -53,10 +53,8 @@ cleanUserfile <- function(filename){
       temp 
 }
 
-#remove useless column
-#add unique count "1" column && "Type" column
 
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-4/granular_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-6/granular_activity"
 setwd(directory)
 #get clicked email data
 dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
@@ -72,6 +70,7 @@ extract_Name <- paste("c:/Temp/granular_mailchimp_data",
                       format(Sys.Date(),"%d%m%y"),".csv",sep="_")
 write.csv(allData, extract_Name, row.names=FALSE)
 
-#export list email
-p <- list.files(paste(directory,"clicks", sep="/"), pattern="*.csv")
-write.csv(p, "c:/Temp/listallnewsletters.csv", row.names=FALSE)
+
+#function to run all the commands
+
+

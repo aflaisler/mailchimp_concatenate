@@ -25,13 +25,13 @@ token2 <- Auth("535373914577-eslikeemn0snd94rn3tt2708movf9e9b.apps.googleusercon
                "WiZHQvgWjQHegsfCyEwmOm4z")
 
 
-save(token2,file="./token_file")
+save(token,file="./token_file")
 load("./token_file")
-ValidateToken(token2)
+ValidateToken(token)
 
 
 query.list <- Init(start.date = "2014-04-01",
-                   end.date = "2015-07-17",
+                   end.date = "2015-07-27",
                    dimensions = "ga:dimension14, ga:country",
                    metrics = "ga:goal3completions",
                    max.results = 20000,
@@ -43,7 +43,7 @@ query.list <- Init(start.date = "2014-04-01",
 ga.query <- QueryBuilder(query.list)
 
 # Extract the data and store it in a data-frame
-ga.data <- GetReportData(ga.query, token2, paginate_query = F)
+ga.data <- GetReportData(ga.query, token, paginate_query = T)
 
 #export email data into csv
 extract_Name <- paste("c:/Temp/GA_data_country",
