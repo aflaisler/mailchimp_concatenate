@@ -99,9 +99,8 @@ testVectorDim3 <- function(X,Y){
 }
 
 
-#test2  check 1st col only contain emails
+#test2  check 3rd col only contains "Clicks", "Opens", "New"
 test2GranularActivity <- function(){
-      allData <- rbind(data_clicks, data_opens, data_users)
       X <- unique(allData[4])
       Data <- c("Clicks", "Opens", "New")
       Y <- data.frame(Data)
@@ -109,23 +108,40 @@ test2GranularActivity <- function(){
 }
 
 
+#test3 check 1st col only contain emails 
+test3GranularActivity <- function(){
+      error <- 0
+      for(i in 1:nrow(allData)){
+            if(is.na(allData[i,1])) {
+                  error <- 1
+                  break
+            }else{
+                  if(grep("@", allData[i,1])!=1){
+                        error <- 1
+                        break
+                  }else{
+                        next
+                  }
+            }
+      }
+      if(error==0){
+            print("Passed")
+      }else{
+            print("Failed, some emails don't have @ ")
+      }    
+}
+
 ###################################################################################
 
-#Extract and process data
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-6/granular_activity"
+#Extract, process and test the data
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-5/granular_activity"
 setwd(directory)
 data_clicks <- concatenateGranular(getwd(), "clicks", "Clicks")
 data_opens <- concatenateGranular(getwd(), "opens", "Opens")
 data_users <- cleanUserFile("users.csv") 
+allData <- rbind(data_clicks, data_opens, data_users)
 granularActivityData(directory)
-test1GranularActivity(directory)
+test1GranularActivity()
 test2GranularActivity()
+test3GranularActivity()
 
-
-
-
-#test3 check 3rd col only contains "Clicks", "Opens", "New"
-test3 <- function(){
-      col4 <- read.csv()
-      if(typeof(directory)=="character"){print("passed")}
-}
