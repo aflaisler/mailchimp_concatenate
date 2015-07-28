@@ -93,15 +93,33 @@ Test1_Granular_Activity(directory)
 
 
 #test2  check 1st col only contain emails
-setwd(directory)
+
+allData <- rbind(dataClicks, dataOpens, dataUsers)
+unique(allData[4])
 dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
 dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
 dataUsers <- cleanUserfile("users.csv")
+test2 <- function(X,Y){
+      error <- 0
+      for(i in 1:3){
+            if(Y[i,1]==X[i,1] & is.na(Y[i,1])==FALSE & is.na(X[i,1])==FALSE){
+                  next
+                  }else{
+                  error <- 1
+                  next
+                  }
+      }
+      if(error==0){
+            print("Passed")
+      }else{
+            print("Failed, some data is not Clicks, Opens or New")
+      }
 
-
+}
 
 #test3 check 3rd col only contains "Clicks", "Opens", "New"
-test <- function(){
+test3 <- function(){
+      col4 <- read.csv()
       if(typeof(directory)=="character"){print("passed")}
 }
 
