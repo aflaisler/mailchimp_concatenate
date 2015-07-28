@@ -55,22 +55,10 @@ cleanUserfile <- function(filename){
 }
 
 
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-6/granular_activity"
-
-
-
-#function to run all the commands
-Granular_Activity_Data <- function(directory="C:/Users/Aymeric/Documents/endource/cohort/25307411-6/granular_activity"){
-      setwd(directory)
-      #get clicked email data
-      dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
-      #get opened email data
-      dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
-      #get new user data
-      dataUsers <- cleanUserfile("users.csv")
+#Concatenate + extract
+Granular_Activity_Data <- function(directory){
       #concatenate all data
       allData <- rbind(dataClicks, dataOpens, dataUsers)
-      
       #export email data into csv
       extract_Name <- paste("c:/Temp/granular_mailchimp_data",
                             format(Sys.Date(),"%d%m%y"),".csv",sep="_")
@@ -79,27 +67,42 @@ Granular_Activity_Data <- function(directory="C:/Users/Aymeric/Documents/endourc
 
 
 #Test1 number of rows need to be sum of all files' rows
-Test1_Granular_Activity <- function(directory){ 
-      setwd(directory)
-      dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
-      dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
-      dataUsers <- cleanUserfile("users.csv")      
+Test1_Granular_Activity <- function(directory){      
       extract_Name <- paste("c:/Temp/granular_mailchimp_data",
                             format(Sys.Date(),"%d%m%y"),".csv",sep="_")
       test1_post <- nrow(read.csv(extract_Name))
-      
       test1_pre <- (nrow(dataClicks)+nrow(dataOpens)+nrow(dataUsers))
-      
       if(test1_post==test1_pre){
             print("Passed")
       }else{
-            print("Failed")
+            print("Failed, the sum of rows of init. files does not match of the nrows of final file")
       }
 }
 
+###################################################################################
+
+#Extract and process data
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-6/granular_activity"
+setwd(directory)
+dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
+dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
+dataUsers <- cleanUserfile("users.csv") 
+Granular_Activity_Data(directory)
+Test1_Granular_Activity(directory)
+
+
+
 #test2  check 1st col only contain emails
+setwd(directory)
+dataClicks <- concatenateCSV_granular(getwd(), "clicks", "Clicks")
+dataOpens <- concatenateCSV_granular(getwd(), "opens", "Opens")
+dataUsers <- cleanUserfile("users.csv")
+
+
 
 #test3 check 3rd col only contains "Clicks", "Opens", "New"
-
+test <- function(){
+      if(typeof(directory)=="character"){print("passed")}
+}
 
 
