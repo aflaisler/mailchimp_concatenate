@@ -79,6 +79,7 @@ Test1_Granular_Activity <- function(directory){
       }
 }
 
+
 #test if 2 vectors of dim 3 are identical
 Test_Vector_dim3 <- function(X,Y){
       error <- 0
@@ -97,6 +98,17 @@ Test_Vector_dim3 <- function(X,Y){
       }     
 }
 
+
+#test2  check 1st col only contain emails
+Test2 <- function(){
+      allData <- rbind(dataClicks, dataOpens, dataUsers)
+      X <- unique(allData[4])
+      Data <- c("Clicks", "Opens", "New")
+      Y <- data.frame(Data)
+      Test_Vector_dim3(X,Y)
+}
+
+
 ###################################################################################
 
 #Extract and process data
@@ -110,14 +122,7 @@ Test1_Granular_Activity(directory)
 
 
 
-#test2  check 1st col only contain emails
-Test2 <- function(){
-      allData <- rbind(dataClicks, dataOpens, dataUsers)
-      X <- unique(allData[4])
-      Data <- c("Clicks", "Opens", "New")
-      Y <- data.frame(Data)
-      Test_Vector_dim3(X,Y)
-}
+
 
 #test3 check 3rd col only contains "Clicks", "Opens", "New"
 test3 <- function(){
