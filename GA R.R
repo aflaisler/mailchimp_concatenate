@@ -35,13 +35,22 @@ query.list <- Init(start.date = "2014-04-01",
                    #samplingLevel="HIGHER_PRECISION",
                    table.id = "ga:79040929")
 
+query.list <- Init(start.date = "2015-04-01",
+                   end.date = "2015-07-27",
+                   dimensions = "ga:date",
+                   metrics = "ga:sessions",
+                   max.results = 20000,
+                   #sort = "-ga:date",
+                   #samplingLevel="HIGHER_PRECISION",
+                   table.id = "ga:79040929")
+
 # Create the Query Builder object so that the query parameters are validated
 ga.query <- QueryBuilder(query.list)
 
 # Extract the data and store it in a data-frame
-ga.data <- GetReportData(ga.query, token, paginate_query = T)
+ga.data <- GetReportData(ga.query, token,  split_daywise = T, paginate_query = F)
 
 #export email data into csv
-extract_Name <- paste("c:/Temp/GA_data_country",
+extract_name <- paste("c:/Temp/GA_traffic",
                       format(Sys.Date(),"%d%m%y"),".csv",sep="_")
-write.csv(ga.data, extract_Name, row.names=FALSE)
+write.csv(ga.data, extract_name, row.names=FALSE)
