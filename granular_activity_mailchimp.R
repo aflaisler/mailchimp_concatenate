@@ -138,7 +138,7 @@ test3GranularActivity <- function(){
 #PART 2 - Data processing
 
 #Extract, process and test the data
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-7/granular_activity"
+directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-10/granular_activity"
 setwd(directory)
 data_clicks <- concatenateGranular(getwd(), "clicks", "Clicks")
 data_opens <- concatenateGranular(getwd(), "opens", "Opens")
