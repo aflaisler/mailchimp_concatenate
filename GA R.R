@@ -25,15 +25,15 @@ save(token,file="./token_file")
 load("./token_file")
 ValidateToken(token)
 
-
-query.list <- Init(start.date = "2014-04-01",
-                   end.date = "2015-07-27",
-                   dimensions = "ga:dimension14, ga:country",
-                   metrics = "ga:goal3completions",
-                   max.results = 20000,
+#user_id
+query.list <- Init(start.date = "2014-03-01",
+                   end.date = "2015-08-31",
+                   dimensions = "ga:yearWeek, ga:dimension14",
+                   metrics = "ga:sessions",
+                   max.results = 25000,
                    #sort = "-ga:date",
                    #samplingLevel="HIGHER_PRECISION",
-                   table.id = "ga:79040929")
+                   table.id = "ga:104115317")
 
 query.list <- Init(start.date = "2015-04-01",
                    end.date = "2015-07-27",
@@ -48,18 +48,18 @@ query.list <- Init(start.date = "2015-04-01",
 ga.query <- QueryBuilder(query.list)
 
 # Extract the data and store it in a data-frame
-ga.data <- GetReportData(ga.query, token,  paginate_query = F)
+ga.data <- GetReportData(ga.query, token,  paginate_query = T)
 
-#export email data into csv
-extract_name <- paste("c:/Temp/GA_traffic",
-                      format(Sys.Date(),"%d%m%y"),".csv",sep="_")
-write.csv(ga.data, extract_name, row.names=FALSE)
 
 #Convert date (first column)
 ga.data[,1] <- as.Date(ga.data[,1], "%Y%m%d")
 ga.data[,1] <- format(ga.data[,1], "%d/%m/%Y")
 
 
+#export email data into csv
+extract_name <- paste("c:/Temp/GA_traffic",
+                      format(Sys.Date(),"%d%m%y"),".csv",sep="_")
+write.csv(ga.data, extract_name, row.names=FALSE)
 
 #effectiveness of campaigns
 
