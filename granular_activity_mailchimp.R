@@ -138,7 +138,7 @@ test3GranularActivity <- function(){
 #PART 2 - Data processing
 
 #Extract, process and test the data
-directory <- "C:/Users/Aymeric/Documents/endource/cohort/25307411-11/granular_activity"
+directory <- "C:/Users/Aymeric/Google drive/Documents/endource/cohort/25307411-12/granular_activity"
 setwd(directory)
 data_clicks <- concatenateGranular(getwd(), "clicks", "Clicks")
 data_opens <- concatenateGranular(getwd(), "opens", "Opens")
@@ -148,4 +148,7 @@ granularActivityData(directory)
 test1GranularActivity()
 test2GranularActivity()
 test3GranularActivity()
+
+#concatenate email addresses
+emailAddress_clicks <- concatenateEmail(getwd(), "clicks", "Clicks")
 
