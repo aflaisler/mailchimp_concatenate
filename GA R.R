@@ -18,8 +18,7 @@ library(RGoogleAnalytics)
 #install_github("skardhamar/rga")
 #library(rga)
 
-token <- Auth("759932251705-pkrmm757su078tujn2ptpkb8g5gldkv2.apps.googleusercontent.com",
-              "WiZHQvgWjQHegsfCyEwmOm4z")
+
 
 save(token,file="./token_file")
 load("./token_file")
